@@ -86,9 +86,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 $aconst=(isset($_SERVER['HTTPS']) ? "https://" : "http://");
 
-define('server_url',$aconst.$_SERVER['HTTP_HOST']."/OnlineClass/");
+define('server_url',$aconst.$_SERVER['HTTP_HOST']."/OnlineClassis/");
 
-define('email_logo',$aconst.$_SERVER['HTTP_HOST']."/OnlineClass/assets/images/logo.png");
+define('email_logo',$aconst.$_SERVER['HTTP_HOST']."/OnlineClassis/assets/images/logo.png");
 
 define('email_server','admin@kmphasisinfotech.com');
 
