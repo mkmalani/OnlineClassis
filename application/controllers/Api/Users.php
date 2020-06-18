@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 error_reporting(0);
 //ob_start();
 
-class User extends CI_Controller {
+class Users extends CI_Controller {
     public function __construct()
     {
       parent::__construct();
@@ -25,7 +25,7 @@ class User extends CI_Controller {
 
           $email1 = strtolower($Login_Email);
 
-          $chkUser = $this->model->sel_row("login_master",array("Login_Email"=>$email1,"Login_Password"=>$Login_Password));
+          $getUser = $this->model->sel_row("login_master",array("Login_Email"=>$email1,"Login_Password"=>$Login_Password));
 
           if (count($getUser)==0) {
             return comman_controller::responseMessage(0, "Invalid UserId or Password.", "False");

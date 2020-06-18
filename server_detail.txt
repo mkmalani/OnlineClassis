@@ -1,0 +1,16 @@
+Details about your account
+
+Cpanel Username: zfre_26035828
+Cpanel Password: mkmalani
+Your URL: http://mkmalani.zfreehost.xyz
+FTP Server : ftp.zfreehost.xyz
+FTP Login : zfre_26035828
+FTP Password : mkmalani
+MySQL Database Name: MUST CREATE IN CPANEL
+MySQL Username : zfre_26035828
+MySQL Password : mkmalani
+MySQL Server: SEE THE CPANEL
+
+
+Cpanel URL: https://cpanel.zfreehost.xyz/
+Login URL- https://zfreehost.xyz/
