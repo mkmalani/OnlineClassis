@@ -1,5 +1,8 @@
 <?php
 header('Content-type: application/json; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Content-Type'); 
+header('Access-Control-Allow-Methods: *');
 require_once("Comman_controller.php");
 defined('BASEPATH') OR exit('No direct script access allowed');
 error_reporting(0);
@@ -37,53 +40,63 @@ class Users extends CI_Controller {
 
     }
 
-    public function updateProfile()
-    {
+  public function updateProfile()
+  {
     
-        try{
-            comman_controller::varifyMethod("POST");
-            extract($_POST);
-            
-            comman_controller::requiredValidation([
-                'Login_RowId'=>$Login_RowId,
-                'Login_Name' => $Login_Name,
-                'Login_Email'=>$Login_Email
-             ]);
+      try{
+          comman_controller::varifyMethod("POST");
+          extract($_POST);
+          
+          comman_controller::requiredValidation([
+              'Login_RowId'=>$Login_RowId,
+              'Login_Name' => $Login_Name,
+              'Login_Email'=>$Login_Email,
+              'father_name'=>$father_name,
+              'bdate'=>$bdate,
+              'gender'=>$gender,
+              'address'=>$address,
+              'phone_no'=>$phone_no,
+              'otherphone_no'=>$otherphone_no,
+              'aadharcard_no'=>$aadharcard_no,
+              'bankname'=>$bankname,
+              'bank_acno'=>$bank_acno,
+              'bank_ifsc'=>$bank_ifsc
+           ]);
 
-                   
+                 
 
-            $userdtl=$this->model->sel_row('login_master',array("Login_RowId"=>$Login_RowId,"Login_IsActDct"=>0));  
-            
-             if(count($userdtl)>0){
-                   
-                    
-                    if($Login_Email=="" || $Login_Email==NULL){
-                        $Login_Email=$userdtl->Login_Email;
-                    }
-      
-                    $upddata=array("Login_Name"=>$Login_Name,"Login_Email"=>$Login_Email,"Login_ModDate"=>cur_date_time);
-                    
-                    $this->model->update("login_master",$upddata,array("Login_RowId"=>$Login_RowId));
+          $userdtl=$this->model->sel_row('login_master',array("Login_RowId"=>$Login_RowId,"Login_IsActDct"=>0));  
+          
+           if(count($userdtl)>0){
+                 
                   
-                    $user_detail=$this->model->sel_row("login_master",array("Login_RowId"=>$Login_RowId));
+                  if($Login_Email=="" || $Login_Email==NULL){
+                      $Login_Email=$userdtl->Login_Email;
+                  }
+    
+                  $upddata=array("Login_Name"=>$Login_Name,"Login_Email"=>$Login_Email,"bdate"=>$bdate,"gender"=>$gender,"address"=>$address,"phone_no"=>$phone_no,"otherphone_no"=>$otherphone_no,"aadharcard_no"=>$aadharcard_no,"bankname"=>$bankname,"bank_acno"=>$bank_acno,"bank_ifsc"=>$bank_ifsc,"father_name"=>$father_name,"Login_ModDate"=>cur_date_time);
+                  
+                  $this->model->update("login_master",$upddata,array("Login_RowId"=>$Login_RowId));
+                
+                  $user_detail=$this->model->sel_row("login_master",array("Login_RowId"=>$Login_RowId));
 
-                    if(count($user_detail)>0){
-                                             
-                      $data['data'] = $$user_detail; 
-                      comman_controller::successResponse($data, 1,'Profile has been updated successfully','True');
-                    }
-                    else{
-                        return comman_controller::responseMessage(0, "Something went wrong while update rofile, please try again.", "False");
-                    }
-            }
-            else{
-                return comman_controller::responseMessage(0, "Unable to update profile because of Invalid user_id or account is deactive", "False");
-            }    
-        }
+                  if(count($user_detail)>0){
+                                           
+                    $data['data'] = $user_detail; 
+                    comman_controller::successResponse($data, 1,'Profile has been updated successfully','True');
+                  }
+                  else{
+                      return comman_controller::responseMessage(0, "Something went wrong while update rofile, please try again.", "False");
+                  }
+          }
+          else{
+              return comman_controller::responseMessage(0, "Unable to update profile because of Invalid user_id or account is deactive", "False");
+          }    
+      }
    
-    catch (Exception $e) {
-        return comman_controller::responseMessage(0, "Something went wrong while update profile, please try again.", "False");
-    }  
+      catch (Exception $e) {
+          return comman_controller::responseMessage(0, "Something went wrong while update profile, please try again.", "False");
+      }  
         
   }
 
