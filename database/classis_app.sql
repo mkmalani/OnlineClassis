@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2020 at 01:11 PM
+-- Generation Time: Jul 08, 2020 at 05:29 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -99,6 +99,16 @@ CREATE TABLE `login_master` (
   `Login_Email` varchar(255) NOT NULL,
   `Login_Password` varchar(150) NOT NULL,
   `Login_Name` varchar(255) NOT NULL,
+  `father_name` varchar(100) NOT NULL,
+  `bdate` date NOT NULL,
+  `gender` varchar(15) NOT NULL,
+  `address` text NOT NULL,
+  `phone_no` varchar(50) NOT NULL,
+  `otherphone_no` varchar(50) NOT NULL,
+  `aadharcard_no` varchar(50) NOT NULL,
+  `bankname` varchar(255) NOT NULL,
+  `bank_acno` varchar(150) NOT NULL,
+  `bank_ifsc` varchar(100) NOT NULL,
   `Login_AddDate` datetime NOT NULL DEFAULT current_timestamp(),
   `Login_AddBy` varchar(255) NOT NULL,
   `Login_ModDate` datetime NOT NULL,
@@ -110,8 +120,8 @@ CREATE TABLE `login_master` (
 -- Dumping data for table `login_master`
 --
 
-INSERT INTO `login_master` (`Login_RowId`, `Login_SchoolId`, `Login_TeacherId`, `Login_Email`, `Login_Password`, `Login_Name`, `Login_AddDate`, `Login_AddBy`, `Login_ModDate`, `Login_ModBy`, `Login_IsActDct`) VALUES
-(2, 0, 0, 'mayur.malani411@gmail.com', '123456', 'mayur', '2020-06-07 05:18:00', '', '2020-06-07 05:24:13', '', 0);
+INSERT INTO `login_master` (`Login_RowId`, `Login_SchoolId`, `Login_TeacherId`, `Login_Email`, `Login_Password`, `Login_Name`, `father_name`, `bdate`, `gender`, `address`, `phone_no`, `otherphone_no`, `aadharcard_no`, `bankname`, `bank_acno`, `bank_ifsc`, `Login_AddDate`, `Login_AddBy`, `Login_ModDate`, `Login_ModBy`, `Login_IsActDct`) VALUES
+(2, 0, 0, 'mayur.malani411@gmail.com', '123456', 'mayur', 'K', '1994-08-13', 'Male', 'Surat', '9876548250', '9856000002', '1234567891011', 'HDFC', '100001254623523', 'HDFC00018', '2020-06-07 05:18:00', '', '2020-07-08 15:01:43', '', 0);
 
 -- --------------------------------------------------------
 
@@ -207,6 +217,13 @@ CREATE TABLE `stands_master` (
   `Stands_IsActDct` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `stands_master`
+--
+
+INSERT INTO `stands_master` (`Stands_RowId`, `Stands_Name`, `Stands_Fees`, `Stands_Language`, `Stands_AddDate`, `Stands_AddBy`, `Stands_ModDate`, `Stands_ModBy`, `Stands_IsActDct`) VALUES
+(1, 'Commerce 12', 15000, 'Gujarati', '2020-07-08 19:57:52', '', '2020-07-08 19:57:52', '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -242,10 +259,45 @@ CREATE TABLE `subject_master` (
   `Subject_StandsId` int(11) NOT NULL,
   `Subject_AddDate` datetime NOT NULL DEFAULT current_timestamp(),
   `Subject_AddBy` varchar(255) NOT NULL,
-  `Subject_ModDate` datetime NOT NULL,
-  `Subject_ModBy` varchar(255) NOT NULL DEFAULT current_timestamp(),
+  `Subject_ModDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `Subject_ModBy` varchar(255) NOT NULL,
   `Subject_IsActDct` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `subject_master`
+--
+
+INSERT INTO `subject_master` (`Subject_RowId`, `Subject_Name`, `Subject_Description`, `Subject_StandsId`, `Subject_AddDate`, `Subject_AddBy`, `Subject_ModDate`, `Subject_ModBy`, `Subject_IsActDct`) VALUES
+(1, 'Maths', 'Maths', 1, '2020-07-08 19:55:40', '', '0000-00-00 00:00:00', '', 0),
+(2, 'Science', 'Science', 1, '2020-07-08 19:55:54', '', '0000-00-00 00:00:00', '', 0),
+(3, 'BA', 'BA', 1, '2020-07-08 19:56:02', '', '0000-00-00 00:00:00', '', 0),
+(4, 'Economics', 'Economics', 1, '2020-07-08 19:56:13', '', '0000-00-00 00:00:00', '', 0),
+(5, 'English', 'English', 1, '2020-07-08 19:56:22', '', '0000-00-00 00:00:00', '', 0),
+(6, 'Accounting', 'Accounting', 1, '2020-07-08 19:56:38', '', '0000-00-00 00:00:00', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timetable_master`
+--
+
+CREATE TABLE `timetable_master` (
+  `timetable_id` int(11) NOT NULL,
+  `Timetable_SubjectId` int(11) NOT NULL,
+  `day_name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `Timetable_StandsId` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `timetable_master`
+--
+
+INSERT INTO `timetable_master` (`timetable_id`, `Timetable_SubjectId`, `day_name`, `date`, `Timetable_StandsId`, `created_date`, `updated_date`) VALUES
+(1, 1, 'Monday', '2020-07-08', 1, '2020-07-08 20:03:06', '2020-07-08 20:03:06');
 
 -- --------------------------------------------------------
 
@@ -272,7 +324,7 @@ CREATE TABLE `video_master` (
 --
 
 INSERT INTO `video_master` (`Video_RowId`, `Video_Name`, `Video_StandsId`, `Video_SubjectId`, `Video_VideoId`, `Video_CreatedBy`, `Video_AddDate`, `Video_AddBy`, `Video_ModDate`, `Video_ModBy`, `Video_IsActDct`) VALUES
-(1, 'test', 0, 0, 'test update', '', '2020-06-07 04:43:56', '', '2020-06-07 04:44:43', '', 0);
+(1, 'test', 0, 0, 'VGSd_BV59kA', 'Mayur', '2020-06-07 04:43:56', '', '2020-06-07 04:44:43', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -339,6 +391,12 @@ ALTER TABLE `subject_master`
   ADD PRIMARY KEY (`Subject_RowId`);
 
 --
+-- Indexes for table `timetable_master`
+--
+ALTER TABLE `timetable_master`
+  ADD PRIMARY KEY (`timetable_id`);
+
+--
 -- Indexes for table `video_master`
 --
 ALTER TABLE `video_master`
@@ -394,7 +452,7 @@ ALTER TABLE `school_master`
 -- AUTO_INCREMENT for table `stands_master`
 --
 ALTER TABLE `stands_master`
-  MODIFY `Stands_RowId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Stands_RowId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `student_query_master`
@@ -406,7 +464,13 @@ ALTER TABLE `student_query_master`
 -- AUTO_INCREMENT for table `subject_master`
 --
 ALTER TABLE `subject_master`
-  MODIFY `Subject_RowId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Subject_RowId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `timetable_master`
+--
+ALTER TABLE `timetable_master`
+  MODIFY `timetable_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `video_master`
