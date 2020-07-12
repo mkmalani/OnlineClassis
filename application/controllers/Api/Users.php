@@ -370,5 +370,59 @@ class Users extends CI_Controller {
 
     }
 
+    public function getTimeTable()
+    {
+        try{
+            comman_controller::varifyMethod("POST");
+            extract($_POST);
+            
+           
+            comman_controller::requiredValidation([
+                'user_id'=>$user_id,
+                'stands_id'=>$stands_id                       
+             ]);
+
+            $getTimeTableDt = $this->model->querydata("SELECT ttm.timetable_id,ttm.Timetable_SubjectId,ttm.day_name,ttm.date,ttm.Timetable_StandsId,sm.Subject_Name,sm.Subject_Description FROM timetable_master ttm JOIN subject_master sm ON sm.Subject_RowId=ttm.Timetable_SubjectId");
+            $data = array();
+            foreach ($getTimeTableDt as $key => $value) {
+              $data[$value->day_name][]=$value;
+            }
+
+            return comman_controller::successResponse($data,1, "get TimeTable successfully", "True");
+                
+        } 
+        catch (Exception $e) {
+            return comman_controller::responseMessage(0, "Something went wrong while get data, please try again.", "False");
+        }
+
+    }
+
+    public function getGallery()
+    {
+        try{
+            comman_controller::varifyMethod("POST");
+            extract($_POST);
+            
+           
+            comman_controller::requiredValidation([
+                'user_id'=>$user_id                     
+             ]);
+
+            $imagepath = base_url()."assets/gallery/";
+            $galleryDt = $this->model->sel_fld_res("*,IF(media != '',concat('$imagepath', media),'') as media","gallery_master",array(1=>1));
+            $data = array();
+            foreach ($galleryDt as $key => $value) {
+              $data[$value->festival_type][]=$value;
+            }
+
+            return comman_controller::successResponse($data,1, "get Gallery data successfully", "True");
+                
+        } 
+        catch (Exception $e) {
+            return comman_controller::responseMessage(0, "Something went wrong while get data, please try again.", "False");
+        }
+
+    }
+
   
 }

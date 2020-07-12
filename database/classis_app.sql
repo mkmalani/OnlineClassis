@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2020 at 05:29 PM
+-- Generation Time: Jul 12, 2020 at 06:32 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -70,6 +70,29 @@ CREATE TABLE `class_master` (
   `Class_ModBy` varchar(255) NOT NULL,
   `Class_IsActDct` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery_master`
+--
+
+CREATE TABLE `gallery_master` (
+  `gallery_id` int(11) NOT NULL,
+  `festival_type` varchar(150) NOT NULL,
+  `media` varchar(150) NOT NULL,
+  `type` enum('image','video') NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gallery_master`
+--
+
+INSERT INTO `gallery_master` (`gallery_id`, `festival_type`, `media`, `type`, `school_id`, `created_date`, `updated_date`) VALUES
+(1, 'Holi', 'image1.png', 'image', 1, '2020-07-12 09:53:14', '2020-07-12 09:53:14');
 
 -- --------------------------------------------------------
 
@@ -297,7 +320,9 @@ CREATE TABLE `timetable_master` (
 --
 
 INSERT INTO `timetable_master` (`timetable_id`, `Timetable_SubjectId`, `day_name`, `date`, `Timetable_StandsId`, `created_date`, `updated_date`) VALUES
-(1, 1, 'Monday', '2020-07-08', 1, '2020-07-08 20:03:06', '2020-07-08 20:03:06');
+(1, 1, 'Monday', '2020-07-08', 1, '2020-07-08 20:03:06', '2020-07-08 20:03:06'),
+(2, 2, 'Monday', '2020-07-08', 1, '2020-07-08 20:03:06', '2020-07-08 20:03:06'),
+(3, 3, 'Tuesday', '2020-07-08', 1, '2020-07-08 20:03:06', '2020-07-08 20:03:06');
 
 -- --------------------------------------------------------
 
@@ -341,6 +366,12 @@ ALTER TABLE `admin_master`
 --
 ALTER TABLE `class_master`
   ADD PRIMARY KEY (`Class_RowId`);
+
+--
+-- Indexes for table `gallery_master`
+--
+ALTER TABLE `gallery_master`
+  ADD PRIMARY KEY (`gallery_id`);
 
 --
 -- Indexes for table `homework_master`
@@ -419,6 +450,12 @@ ALTER TABLE `class_master`
   MODIFY `Class_RowId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `gallery_master`
+--
+ALTER TABLE `gallery_master`
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `homework_master`
 --
 ALTER TABLE `homework_master`
@@ -470,7 +507,7 @@ ALTER TABLE `subject_master`
 -- AUTO_INCREMENT for table `timetable_master`
 --
 ALTER TABLE `timetable_master`
-  MODIFY `timetable_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `timetable_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `video_master`
